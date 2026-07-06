@@ -7,7 +7,10 @@ const root      = path.resolve(__dirname, "..");          // project root
 const htmlPath  = path.resolve(root, "public/resume.html");
 const pdfPath   = path.resolve(root, "public/resume.pdf");
 
-const browser = await puppeteer.launch({ headless: true });
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
+});
 const page    = await browser.newPage();
 
 await page.goto(`file://${htmlPath}`, { waitUntil: "networkidle0" });

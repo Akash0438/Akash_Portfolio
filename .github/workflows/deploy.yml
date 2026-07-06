@@ -34,6 +34,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Chromium for Puppeteer
+        run: npx puppeteer browsers install chrome
+
+      - name: Generate resume PDF
+        run: node scripts/generate-resume-pdf.mjs
+
       - name: Build
         run: npm run build
 
