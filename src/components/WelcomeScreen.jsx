@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Float } from "@react-three/drei";
 import { motion, AnimatePresence } from "framer-motion";
+import avatarUrl from "/avatar.jpg?url";
 
 /* ── Spinning 3D logo sphere ── */
 function LogoSphere() {
@@ -78,9 +79,6 @@ function Particles() {
 function AvatarImage() {
   const [err, setErr] = useState(false);
 
-  // Try .jpg first, gracefully fall back to .png, then initials
-  const src = "/avatar.jpg";
-
   if (err) {
     return (
       <div
@@ -97,7 +95,7 @@ function AvatarImage() {
 
   return (
     <img
-      src={src}
+      src={avatarUrl}
       alt="Akash V"
       className="w-full h-full object-cover"
       onError={() => setErr(true)}
