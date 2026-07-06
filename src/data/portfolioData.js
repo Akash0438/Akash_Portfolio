@@ -5,7 +5,7 @@ export const personalInfo = {
   email: "vuppallaakash@gmail.com",
   github: "https://github.com/Akash0438",
   linkedin: "https://linkedin.com/in/akash-vuppala",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: `${import.meta.env.BASE_URL}resume.pdf`,
 };
 
 export const aboutText = [
