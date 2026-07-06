@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
