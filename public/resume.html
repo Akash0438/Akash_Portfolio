@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akash V — Resume</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg:      #030014;
+    --surface: #0a0a1a;
+    --border:  rgba(139,92,246,0.22);
+    --text:    #f1f5f9;
+    --muted:   #94a3b8;
+    --dim:     #64748b;
+    --purple:  #a78bfa;
+    --violet:  #7c3aed;
+    --cyan:    #38bdf8;
+    --green:   #34d399;
+    --pink:    #f472b6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, 'Segoe UI', system-ui, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Page wrapper ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 7mm 10mm;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Background glow blobs (decorative) ── */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: 0.18;
+  }
+  .blob-1 { width: 260px; height: 260px; background: #7c3aed; top: -60px; right: -60px; }
+  .blob-2 { width: 200px; height: 200px; background: #06b6d4; bottom: 60px; left: -60px; }
+  .blob-3 { width: 160px; height: 160px; background: #ec4899; bottom: 200px; right: 40px; opacity: 0.1; }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 7px;
+    margin-bottom: 7px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .header-left { flex: 1; }
+
+  .name {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 55%, #f472b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .role {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .contact-grid a { color: var(--purple); text-decoration: none; }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 7px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .section-title {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(139,92,246,0.4), transparent);
+  }
+
+  /* ── Summary ── */
+  .summary {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.55;
+    background: rgba(139,92,246,0.05);
+    border: 1px solid rgba(139,92,246,0.14);
+    border-radius: 8px;
+    padding: 7px 10px;
+  }
+
+  /* ── Competencies ── */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .chip {
+    font-size: 10px;
+    font-weight: 500;
+    color: #c4b5fd;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 99px;
+    padding: 1.5px 8px;
+  }
+
+  /* ── Experience ── */
+  .job {
+    margin-bottom: 7px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .job-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+
+  .job-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .job-company {
+    font-size: 12px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #a78bfa, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 4px;
+  }
+
+  .job-period {
+    font-size: 10px;
+    font-weight: 600;
+    color: #a78bfa;
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 99px;
+    padding: 1px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .job-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 3px 0 4px 0;
+  }
+  .job-bullets li {
+    font-size: 11px;
+    color: var(--muted);
+    padding-left: 13px;
+    position: relative;
+    margin-bottom: 2px;
+    line-height: 1.5;
+  }
+  .job-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-size: 10px;
+    top: 1px;
+  }
+
+  .tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tech-tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: #67e8f9;
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  /* ── Projects ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .project-card {
+    background: rgba(10,10,26,0.7);
+    border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 8px;
+    padding: 6px 9px;
+    position: relative;
+    overflow: hidden;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 8px 8px 0 0;
+  }
+  .project-card:nth-child(1)::before { background: linear-gradient(90deg, #7c3aed, transparent); }
+  .project-card:nth-child(2)::before { background: linear-gradient(90deg, #a855f7, transparent); }
+  .project-card:nth-child(3)::before { background: linear-gradient(90deg, #06b6d4, transparent); }
+  .project-card:nth-child(4)::before { background: linear-gradient(90deg, #ec4899, transparent); }
+
+  .project-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .project-desc {
+    font-size: 10px;
+    color: var(--dim);
+    line-height: 1.45;
+    margin-bottom: 4px;
+  }
+
+  /* ── Skills table ── */
+  .skills-table { width: 100%; border-collapse: collapse; }
+  .skills-table tr { vertical-align: top; }
+  .skills-table td { padding: 2px 6px 2px 0; font-size: 10.5px; }
+  .skill-cat {
+    font-weight: 700;
+    color: var(--purple);
+    white-space: nowrap;
+    width: 116px;
+    font-size: 10px;
+    padding-top: 3px;
+  }
+  .skill-val { color: var(--muted); }
+
+  /* ── Two-column bottom ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* ── Cert / Edu items ── */
+  .cert-item, .edu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .cert-icon, .edu-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .cert-name, .edu-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .cert-issuer, .edu-detail {
+    font-size: 10px;
+    color: var(--dim);
+    margin-top: 1px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 7px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(139,92,246,0.12);
+    display: flex;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.05em;
+  }
+  .footer span { color: var(--purple); }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #030014 !important; }
+    .page { width: 100%; padding: 8mm 10mm; }
+    .blob { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Decorative blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- ══ HEADER ══ -->
+  <header class="header">
+    <div class="header-left">
+      <div class="name">Akash V</div>
+      <div class="role">Software Engineer &nbsp;·&nbsp; Full-Stack &amp; Quality Engineering</div>
+    </div>
+    <div class="contact-grid">
+      <span>Chennai, Tamil Nadu 600049 &nbsp;·&nbsp; +91 6381620799</span>
+      <a href="mailto:vuppallaakash@gmail.com">vuppallaakash@gmail.com</a>
+      <a href="https://linkedin.com/in/akash-vuppala">linkedin.com/in/akash-vuppala</a>
+      <a href="https://github.com/Akash0438">github.com/Akash0438</a>
+    </div>
+  </header>
+
+  <!-- ══ SUMMARY ══ -->
+  <section class="section">
+    <div class="section-title">Professional Summary</div>
+    <p class="summary">
+      Software Engineer with 2+ years of hands-on experience across the full development lifecycle, combining full-stack engineering
+      (ReactJS, Spring Boot, Java) with automation, SQL Server data validation, and CI/CD pipeline expertise. Built automation tooling
+      and Python/PowerShell scripts that reduced manual engineering effort by ~40%, integrating with Jenkins and GitLab pipelines.
+      Collaborates with engineers, architects, and business analysts in Agile teams to design, build, test, and deploy reliable,
+      scalable software. ISTQB Certified Foundation Level.
+    </p>
+  </section>
+
+  <!-- ══ CORE COMPETENCIES ══ -->
+  <section class="section">
+    <div class="section-title">Core Competencies</div>
+    <div class="chips">
+      <span class="chip">ReactJS &amp; Full-Stack Development</span>
+      <span class="chip">SQL Server &amp; Database Engineering</span>
+      <span class="chip">Software Design &amp; Architecture</span>
+      <span class="chip">Automation &amp; Scripting (Python, PowerShell)</span>
+      <span class="chip">CI/CD Pipeline Integration (Jenkins, GitLab)</span>
+      <span class="chip">REST &amp; SOAP API Development</span>
+      <span class="chip">Agile SDLC</span>
+      <span class="chip">Requirements Analysis</span>
+      <span class="chip">Scalability &amp; Performance Optimisation</span>
+      <span class="chip">Stakeholder Collaboration &amp; Mentoring</span>
+    </div>
+  </section>
+
+  <!-- ══ EXPERIENCE ══ -->
+  <section class="section">
+    <div class="section-title">Professional Experience</div>
+
+    <!-- IBM -->
+    <div class="job">
+      <div class="job-header">
+        <div>
+          <span class="job-company">IBM</span>
+          <span class="job-title">— Quality Assurance Engineer (Lead Responsibilities)</span>
+        </div>
+        <span class="job-period">Feb 2024 – Present</span>
+      </div>
+      <ul class="job-bullets">
+        <li>Collaborated within feature teams across the full SDLC — requirements analysis, design, coding, testing, deployment, and operations — for multiple enterprise and SaaS platforms.</li>
+        <li>Built and maintained automation frameworks (Selenium, Java) integrated into Jenkins &amp; GitLab CI/CD pipelines, improving release velocity and reducing manual engineering effort by <strong style="color:#34d399">~40%</strong>.</li>
+        <li>Designed and developed REST and SOAP service validation tooling using Karate, verifying API contracts and integration stability across distributed microservices.</li>
+        <li>Automated operational workflows using Python and PowerShell — environment provisioning, deployment validation, result aggregation — applying best practices around scalability and automation.</li>
+        <li>Executed advanced SQL Server &amp; MySQL queries for backend data validation, performance tuning, and root-cause analysis across enterprise applications.</li>
+        <li>Partnered with developers, architects, and BAs in design reviews and Agile ceremonies; mentored junior engineers on automation best practices and Agile delivery.</li>
+      </ul>
+      <div class="tech-row">
+        <span class="tech-tag">Java</span><span class="tech-tag">Selenium</span><span class="tech-tag">Karate</span>
+        <span class="tech-tag">Python</span><span class="tech-tag">PowerShell</span><span class="tech-tag">Jenkins</span>
+        <span class="tech-tag">GitLab</span><span class="tech-tag">SQL Server</span><span class="tech-tag">MySQL</span>
+        <span class="tech-tag">Jira</span><span class="tech-tag">Microservices</span>
+      </div>
+    </div>
+
+    <!-- Engati -->
+    <div class="job">
+      <div class="job-header">
+        <div>
+          <span class="job-company">Engati Technologies</span>
+          <span class="job-title">— Software Developer Intern</span>
+        </div>
+        <span class="job-period">Jan 2023 – Sep 2023</span>
+      </div>
+      <ul class="job-bullets">
+        <li>Built full-stack features using ReactJS (front end) and Spring Boot/Java (back end) for an enterprise chatbot platform across the full application development lifecycle.</li>
+        <li>Developed and unit-tested RESTful web services with JUnit; integrated and validated third-party APIs (Facebook, WhatsApp, Instagram, Slack), verifying data flows and error-handling logic.</li>
+        <li>Worked within Jenkins CI/CD pipelines for build validation and code quality analysis; used SQL and MongoDB for data modelling and backend performance tuning.</li>
+        <li>Participated in Agile code reviews and sprint ceremonies, shipping production-ready features with maintained test coverage.</li>
+      </ul>
+      <div class="tech-row">
+        <span class="tech-tag">ReactJS</span><span class="tech-tag">Spring Boot</span><span class="tech-tag">Java</span>
+        <span class="tech-tag">JUnit</span><span class="tech-tag">REST API</span><span class="tech-tag">MongoDB</span>
+        <span class="tech-tag">SQL</span><span class="tech-tag">Jenkins</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROJECTS ══ -->
+  <section class="section">
+    <div class="section-title">Key Projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-name">E-Commerce Microservices Platform</div>
+        <div class="project-desc">Designed event-driven microservices scenarios, validating Kafka message flows and Apache Solr search across distributed services.</div>
+        <div class="tech-row">
+          <span class="tech-tag">Java</span><span class="tech-tag">Spring Boot</span><span class="tech-tag">Apache Kafka</span><span class="tech-tag">Apache Solr</span><span class="tech-tag">ReactJS</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-name">Duplicate Question Detection — NLP/ML</div>
+        <div class="project-desc">Built data-driven evaluation pipelines to validate ML model output accuracy for duplicate question detection using NLP techniques.</div>
+        <div class="tech-row">
+          <span class="tech-tag">Python</span><span class="tech-tag">NLP</span><span class="tech-tag">Machine Learning</span><span class="tech-tag">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-name">CI/CD Automation Framework</div>
+        <div class="project-desc">Selenium + Java automation frameworks integrated into Jenkins &amp; GitLab pipelines, cutting manual QA effort by ~40% across SaaS platforms.</div>
+        <div class="tech-row">
+          <span class="tech-tag">Java</span><span class="tech-tag">Selenium</span><span class="tech-tag">Jenkins</span><span class="tech-tag">GitLab</span><span class="tech-tag">Python</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-name">API Validation Tooling (Karate)</div>
+        <div class="project-desc">REST and SOAP service validation tooling verifying API contracts and integration stability across distributed microservices architectures.</div>
+        <div class="tech-row">
+          <span class="tech-tag">Karate</span><span class="tech-tag">REST API</span><span class="tech-tag">SOAP</span><span class="tech-tag">Java</span><span class="tech-tag">Microservices</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TECHNICAL SKILLS ══ -->
+  <section class="section">
+    <div class="section-title">Technical Skills</div>
+    <table class="skills-table">
+      <tr>
+        <td class="skill-cat">Languages</td>
+        <td class="skill-val">Java, Python, JavaScript, TypeScript, SQL, XML/XPath, XQuery, PowerShell</td>
+        <td class="skill-cat">Frameworks &amp; Frontend</td>
+        <td class="skill-val">ReactJS, Spring Boot, HTML/CSS</td>
+      </tr>
+      <tr>
+        <td class="skill-cat">Databases</td>
+        <td class="skill-val">MS SQL Server, MySQL, MongoDB, Redis, Elasticsearch</td>
+        <td class="skill-cat">APIs &amp; Integration</td>
+        <td class="skill-val">REST API, SOAP API, Apache Kafka, Service Integration</td>
+      </tr>
+      <tr>
+        <td class="skill-cat">Testing &amp; Automation</td>
+        <td class="skill-val">Selenium, Karate, JUnit, RPA</td>
+        <td class="skill-cat">CI/CD &amp; DevOps</td>
+        <td class="skill-val">Jenkins, GitLab, Git, Docker (exposure)</td>
+      </tr>
+      <tr>
+        <td class="skill-cat">Tools &amp; BI</td>
+        <td class="skill-val">Jira, Confluence, Kibana, Power BI, VS Code, Microsoft 365</td>
+        <td class="skill-cat">Cloud</td>
+        <td class="skill-val">IBM Cloud, Microsoft Azure (AZ-900)</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- ══ CERTIFICATIONS + EDUCATION ══ -->
+  <div class="bottom-grid">
+    <section class="section">
+      <div class="section-title">Certifications</div>
+      <div class="cert-item">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-name">ISTQB Certified Tester – Foundation Level (CTFL)</div>
+          <div class="cert-issuer">ISTQB International</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">☁️</div>
+        <div>
+          <div class="cert-name">IBM Cloud Advocate V2</div>
+          <div class="cert-issuer">IBM</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">⚡</div>
+        <div>
+          <div class="cert-name">Microsoft Certified: Azure Data Fundamentals</div>
+          <div class="cert-issuer">Microsoft (AZ-900)</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Education</div>
+      <div class="edu-item">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-name">B.Tech — Computer Science (AI &amp; ML Specialisation)</div>
+          <div class="edu-detail">SRM University, Chennai &nbsp;·&nbsp; June 2019 – May 2023</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <span>Akash V</span>&nbsp;·&nbsp;vuppallaakash@gmail.com&nbsp;·&nbsp;
+    <span>github.com/Akash0438</span>&nbsp;·&nbsp;linkedin.com/in/akash-vuppala
+  </div>
+
+</div>
+</body>
+</html>
