@@ -77,7 +77,7 @@ export default function Navbar() {
           <li>
             <a
               href={personalInfo.resumeUrl}
-              download="Akash V Resume"
+              download="Akash V Resume.pdf"
               className="mag-btn ml-4"
               style={{ background: "linear-gradient(135deg,#7c3aed,#8b5cf6)", color: "#fff" }}
             >

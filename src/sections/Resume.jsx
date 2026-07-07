@@ -32,7 +32,7 @@ export default function Resume() {
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href={personalInfo.resumeUrl}
-                download="Akash V Resume"
+                download="Akash V Resume.pdf"
                 className="mag-btn"
                 style={{ background: "linear-gradient(135deg,#7c3aed,#8b5cf6)", color: "#fff" }}
               >

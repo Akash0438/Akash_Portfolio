@@ -1,5 +1,5 @@
 {
-  "name": "Akash_Portfolio",
+  "name": "my-portfolio-bob",
   "homepage": "https://Akash0438.github.io/Akash_Portfolio",
   "private": true,
   "version": "0.0.0",
@@ -11,9 +11,10 @@
     "preview": "vite preview",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@studio-freight/lenis": "^1.0.42",

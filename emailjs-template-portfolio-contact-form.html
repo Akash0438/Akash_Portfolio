@@ -1,0 +1,247 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EmailJS Template — Akash Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    background: #ffffff;
+    color: #1f2328;
+    padding: 32px 16px 48px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .sub { color: #57606a; font-size: 13px; margin-bottom: 32px; }
+
+  /* Step badges */
+  .section { margin-bottom: 28px; }
+  .section-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #57606a; margin-bottom: 10px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #3b82d4; color: #fff; font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Field rows */
+  .field { margin-bottom: 14px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+  .field-label {
+    background: #f7f8fa; border-bottom: 1px solid #e5e7eb;
+    padding: 6px 14px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em; color: #57606a;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .field-value {
+    padding: 10px 14px; font-size: 13px; color: #1f2328;
+    font-family: "Menlo", "Consolas", monospace;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .field-value.plain { font-family: -apple-system, "Segoe UI", system-ui, sans-serif; }
+  .tag { color: #7c5cd8; font-weight: 600; }
+  .note { color: #57606a; font-size: 11px; font-style: italic; }
+
+  /* Email body preview */
+  .preview-box {
+    border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;
+    margin-top: 4px;
+  }
+  .preview-header {
+    background: #f7f8fa; border-bottom: 1px solid #e5e7eb;
+    padding: 6px 14px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em; color: #57606a;
+  }
+  .preview-body {
+    padding: 20px 24px; background: #ffffff;
+  }
+
+  /* The actual email HTML preview */
+  .email-shell {
+    border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden;
+  }
+  .email-header {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    padding: 28px 28px 20px;
+    color: #fff;
+  }
+  .email-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 2px; }
+  .email-header p  { font-size: 13px; opacity: 0.85; }
+  .email-content { padding: 24px 28px; background: #fafafa; }
+  .meta-row { display: flex; gap: 10px; margin-bottom: 14px; }
+  .meta-chip {
+    background: #f0eaff; border: 1px solid #ddd6fe;
+    border-radius: 6px; padding: 8px 14px; flex: 1;
+  }
+  .meta-chip .chip-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: #7c3aed; font-weight: 700; }
+  .meta-chip .chip-val   { font-size: 13px; color: #1f2328; margin-top: 2px; }
+  .msg-box {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 16px 18px; font-size: 13px; color: #374151; line-height: 1.7;
+    margin-top: 4px;
+  }
+  .msg-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #57606a; margin-bottom: 8px; }
+  .email-footer {
+    padding: 14px 28px; background: #f7f8fa; border-top: 1px solid #e5e7eb;
+    font-size: 11px; color: #57606a; text-align: center;
+  }
+
+  /* Steps guide */
+  .steps { counter-reset: step; list-style: none; }
+  .steps li {
+    counter-increment: step;
+    display: flex; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+    font-size: 13px; color: #1f2328;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; min-width: 22px; border-radius: 50%;
+    background: #e5e7eb; color: #57606a; font-size: 11px; font-weight: 700;
+    margin-top: 1px;
+  }
+  .steps li b { color: #1f2328; }
+  code {
+    background: #f0eaff; color: #7c5cd8; padding: 1px 5px;
+    border-radius: 4px; font-size: 12px; font-family: "Menlo","Consolas",monospace;
+  }
+
+  hr { border: none; border-top: 1px solid #e5e7eb; margin: 28px 0; }
+
+  footer {
+    margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb;
+    text-align: center; font-size: 12px; color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>EmailJS Template Setup</h1>
+  <p class="sub">Copy each value below into the corresponding field in the EmailJS template editor.</p>
+
+  
+  <div class="section">
+    <div class="section-title"><span class="badge">A</span> Template Fields</div>
+
+    <div class="field">
+      <div class="field-label">To Email <span class="note">hardcode your address</span></div>
+      <div class="field-value plain">vuppallaakash@gmail.com</div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">From Name</div>
+      <div class="field-value"><span class="tag">{{name}}</span></div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">Reply To</div>
+      <div class="field-value"><span class="tag">{{email}}</span></div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">CC <span class="note">sender gets a copy</span></div>
+      <div class="field-value"><span class="tag">{{email}}</span></div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">Subject</div>
+      <div class="field-value">✉️ New message from <span class="tag">{{name}}</span> via Portfolio</div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title"><span class="badge">B</span> Email Body (HTML) — paste into the "Content" tab</div>
+
+    <div class="field">
+      <div class="field-label">Raw HTML to paste</div>
+      <div class="field-value">
+&lt;div style="font-family:-apple-system,Segoe UI,sans-serif;max-width:560px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb"&gt;<br />
+  &lt;div style="background:linear-gradient(135deg,#7c3aed,#8b5cf6);padding:28px 28px 20px"&gt;<br />
+    &lt;h2 style="color:#fff;font-size:20px;margin:0 0 4px"&gt;New Portfolio Message&lt;/h2&gt;<br />
+    &lt;p style="color:rgba(255,255,255,.8);font-size:13px;margin:0"&gt;Someone reached out via your portfolio contact form.&lt;/p&gt;<br />
+  &lt;/div&gt;<br />
+  &lt;div style="padding:24px 28px;background:#fafafa"&gt;<br />
+    &lt;table style="width:100%;border-collapse:collapse;margin-bottom:20px"&gt;<br />
+      &lt;tr&gt;<br />
+        &lt;td style="padding:10px 14px;background:#f0eaff;border:1px solid #ddd6fe;border-radius:6px 0 0 6px;width:50%"&gt;<br />
+          &lt;div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#7c3aed;font-weight:700"&gt;From&lt;/div&gt;<br />
+          &lt;div style="font-size:14px;color:#1f2328;margin-top:3px"&gt;<span class="tag">{{name}}</span>&lt;/div&gt;<br />
+        &lt;/td&gt;<br />
+        &lt;td style="padding:10px 14px;background:#f0eaff;border:1px solid #ddd6fe;border-left:none;border-radius:0 6px 6px 0;width:50%"&gt;<br />
+          &lt;div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#7c3aed;font-weight:700"&gt;Email&lt;/div&gt;<br />
+          &lt;div style="font-size:14px;color:#1f2328;margin-top:3px"&gt;<span class="tag">{{email}}</span>&lt;/div&gt;<br />
+        &lt;/td&gt;<br />
+      &lt;/tr&gt;<br />
+    &lt;/table&gt;<br />
+    &lt;div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#57606a;margin-bottom:8px"&gt;Message&lt;/div&gt;<br />
+    &lt;div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px 18px;font-size:14px;color:#374151;line-height:1.7;white-space:pre-wrap"&gt;<span class="tag">{{message}}</span>&lt;/div&gt;<br />
+  &lt;/div&gt;<br />
+  &lt;div style="padding:12px 28px;background:#f7f8fa;border-top:1px solid #e5e7eb;font-size:11px;color:#57606a;text-align:center"&gt;<br />
+    Sent via Akash's Portfolio · Reply directly to this email to respond<br />
+  &lt;/div&gt;<br />
+&lt;/div&gt;
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  
+  <div class="section">
+    <div class="section-title"><span class="badge">C</span> Preview — how the email will look</div>
+    <div class="email-shell">
+      <div class="email-header">
+        <h2>New Portfolio Message</h2>
+        <p>Someone reached out via your portfolio contact form.</p>
+      </div>
+      <div class="email-content">
+        <div class="meta-row">
+          <div class="meta-chip">
+            <div class="chip-label">From</div>
+            <div class="chip-val" style="color:#7c3aed;font-weight:600">{{name}}</div>
+          </div>
+          <div class="meta-chip">
+            <div class="chip-label">Email</div>
+            <div class="chip-val" style="color:#7c3aed;font-weight:600">{{email}}</div>
+          </div>
+        </div>
+        <div class="msg-label">Message</div>
+        <div class="msg-box" style="color:#7c3aed;font-weight:600">{{message}}</div>
+      </div>
+      <div class="email-footer">
+        Sent via Akash's Portfolio · Reply directly to this email to respond
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  
+  <div class="section">
+    <div class="section-title"><span class="badge">D</span> How to paste this into EmailJS</div>
+    <ol class="steps">
+      <li>Go to <b>emailjs.com</b> → <b>Email Templates</b> → <b>Create New Template</b></li>
+      <li>Fill in <b>To Email</b>, <b>From Name</b>, <b>Reply To</b>, <b>CC</b>, and <b>Subject</b> from section A above</li>
+      <li>Click the <b>Content</b> tab → switch to <b>HTML editor</b> (toggle in top-right)</li>
+      <li>Delete any existing content and paste the raw HTML from section B</li>
+      <li>Click <b>Save</b> — copy the <b>Template ID</b> (e.g. <code>template_abc1234</code>)</li>
+      <li>Add the Template ID + your <b>Public Key</b> to <code>.env</code> in the project root</li>
+      <li>Restart <code>npm run dev</code> — done!</li>
+    </ol>
+  </div>
+
+</div>
+<footer>Made with IBM Bob</footer>
+</body>
+</html>

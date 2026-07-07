@@ -1,28 +1,45 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
 import { personalInfo } from "../data/portfolioData";
 
+const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
 const SOCIALS = [
-  { icon: <FaEnvelope />, label: personalInfo.email,  href: `mailto:${personalInfo.email}` },
-  { icon: <FaGithub />,   label: "GitHub",            href: personalInfo.github             },
-  { icon: <FaLinkedin />, label: "LinkedIn",          href: personalInfo.linkedin            },
+  { icon: <FaEnvelope />, label: "Gmail",    href: `mailto:${personalInfo.email}` },
+  { icon: <FaGithub />,   label: "GitHub",   href: personalInfo.github             },
+  { icon: <FaLinkedin />, label: "LinkedIn", href: personalInfo.linkedin            },
 ];
 
 const fadeUp = (i = 0) => ({
-  initial:    { opacity: 0, y: 50 },
+  initial:     { opacity: 0, y: 50 },
   whileInView: { opacity: 1, y: 0 },
-  viewport:   { once: true },
-  transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+  viewport:    { once: true },
+  transition:  { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
 });
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent]   = useState(false);
-  const [focus, setFocus] = useState("");
+  const formRef = useRef(null);
+  const [form, setForm]     = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [focus, setFocus]   = useState("");
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const onSubmit = (e) => { e.preventDefault(); setSent(true); };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY);
+      setStatus("sent");
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+    }
+  };
 
   const inputStyle = (field) => ({
     width: "100%",
@@ -40,8 +57,10 @@ export default function Contact() {
   return (
     <section id="contact" className="py-32 relative overflow-hidden">
       {/* Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-64 rounded-full blur-3xl opacity-10 pointer-events-none"
-        style={{ background: "#8b5cf6" }} />
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-64 rounded-full blur-3xl opacity-10 pointer-events-none"
+        style={{ background: "#8b5cf6" }}
+      />
 
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
@@ -76,20 +95,28 @@ export default function Contact() {
 
         {/* Form */}
         <motion.form
+          ref={formRef}
           onSubmit={onSubmit}
           className="glass rounded-3xl p-8 md:p-10 space-y-6"
           style={{ borderColor: "rgba(139,92,246,0.1)" }}
           {...fadeUp(2)}
         >
-          {sent ? (
+          {status === "sent" ? (
             <div className="py-12 text-center">
               <motion.div
-                initial={{ scale: 0 }} animate={{ scale: 1 }}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 12 }}
                 className="text-6xl mb-4"
-              >🚀</motion.div>
-              <h3 className="text-2xl font-bold mb-2" style={{ color: "#f1f5f9" }}>Message Sent!</h3>
-              <p style={{ color: "#64748b" }}>Thanks for reaching out — I'll get back to you soon.</p>
+              >
+                🚀
+              </motion.div>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: "#f1f5f9" }}>
+                Message Sent!
+              </h3>
+              <p style={{ color: "#64748b" }}>
+                Thanks for reaching out — I'll get back to you soon. A copy has been sent to your inbox too.
+              </p>
             </div>
           ) : (
             <>
@@ -97,37 +124,65 @@ export default function Contact() {
                 <div>
                   <label className="section-tag block mb-2">Name</label>
                   <input
-                    type="text" name="name" value={form.name} onChange={onChange} required
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={onChange}
+                    required
                     placeholder="Your name"
                     style={inputStyle("name")}
-                    onFocus={() => setFocus("name")} onBlur={() => setFocus("")}
+                    onFocus={() => setFocus("name")}
+                    onBlur={() => setFocus("")}
                   />
                 </div>
                 <div>
                   <label className="section-tag block mb-2">Email</label>
                   <input
-                    type="email" name="email" value={form.email} onChange={onChange} required
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={onChange}
+                    required
                     placeholder="you@example.com"
                     style={inputStyle("email")}
-                    onFocus={() => setFocus("email")} onBlur={() => setFocus("")}
+                    onFocus={() => setFocus("email")}
+                    onBlur={() => setFocus("")}
                   />
                 </div>
               </div>
               <div>
                 <label className="section-tag block mb-2">Message</label>
                 <textarea
-                  name="message" value={form.message} onChange={onChange} required rows={6}
+                  name="message"
+                  value={form.message}
+                  onChange={onChange}
+                  required
+                  rows={6}
                   placeholder="Tell me about your project..."
                   style={{ ...inputStyle("message"), resize: "none" }}
-                  onFocus={() => setFocus("message")} onBlur={() => setFocus("")}
+                  onFocus={() => setFocus("message")}
+                  onBlur={() => setFocus("")}
                 />
               </div>
+
+              {status === "error" && (
+                <p className="text-sm text-center" style={{ color: "#f87171" }}>
+                  Something went wrong. Please try again or email me directly.
+                </p>
+              )}
+
               <button
                 type="submit"
+                disabled={status === "sending"}
                 className="mag-btn w-full justify-center text-base"
-                style={{ background: "linear-gradient(135deg,#7c3aed,#8b5cf6)", color: "#fff" }}
+                style={{
+                  background: "linear-gradient(135deg,#7c3aed,#8b5cf6)",
+                  color: "#fff",
+                  opacity: status === "sending" ? 0.7 : 1,
+                  cursor: status === "sending" ? "not-allowed" : "pointer",
+                }}
               >
-                Send Message →
+                {status === "sending" ? "Sending…" : "Send Message →"}
               </button>
             </>
           )}

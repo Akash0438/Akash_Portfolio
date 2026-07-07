@@ -127,7 +127,7 @@ export default function Hero() {
             </Link>
             <a
               href={personalInfo.resumeUrl}
-              download="Akash V Resume"
+              download="Akash V Resume.pdf"
               className="mag-btn"
               style={{
                 background: "transparent",
