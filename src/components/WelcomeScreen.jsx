@@ -195,7 +195,7 @@ export default function WelcomeScreen({ visible, onDone }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
-              Akash V
+              Akash Vuppala
             </motion.h1>
 
             {/* Role */}
