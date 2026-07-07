@@ -1,5 +1,5 @@
 export const personalInfo = {
-  name: "Akash V",
+  name: "Akash Vuppala",
   role: "Software Engineer",
   tagline: "Full-Stack Engineer & Quality Specialist — building scalable software across the full development lifecycle.",
   email: "vuppallaakash@gmail.com",
